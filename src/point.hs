@@ -5,7 +5,7 @@ newtype  Point a = Point { runPoint :: (a, a) }
 -- The norm is not to export the constructor, but rather the 'factory' 
 newPoint x y = Point (x, y)
 
--- print a point
+-- print a point as (x, y)
 instance (Show a) => Show (Point a) where
          show (Point(x, y)) = "(" ++ (show x) ++ "," ++ (show y) ++ ")"
 

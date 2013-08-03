@@ -9,15 +9,13 @@ radialCmp pivot p q
            | otherwise = compare (distSq p pivot) (distSq q pivot)  
               where res = cw p q pivot
 
-radialSort :: (Num a, Ord a) => Point a -> [Point a] -> [Point a]
-radialSort pivot = sortBy (radialCmp pivot)
-
 grahamScan :: (Num a, Ord a) => [Point a] -> [Point a]
 grahamScan xs = let (pivot:xs') = sort xs
-                    star = radialSort pivot xs'
+                    star = sortBy (radialCmp pivot) xs'
                     (dup:h) = grahamScanIt [pivot] (star ++ [pivot])
                       in reverse h
 
+grahamScanIt :: (Num a, Ord a) => [Point a] -> [Point a] -> [Point a]
 grahamScanIt (p:p':h) (x:xs) 
              | res == LT = grahamScanIt (x:p:p':h) xs
              | otherwise = grahamScanIt (p':h) (x:xs)
